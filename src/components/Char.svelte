@@ -36,7 +36,9 @@
     color: red;
   }
   .lvl {
-    display: inline-block;
+    position: absolute;
+    left: 10px;
+    top: 15px;
     max-width: 100px;
     font-size: 12px;
     color: blue;
@@ -78,7 +80,7 @@
       {#if isExpand}-{:else}+{/if}
     </button>
     <button class="btn" on:click={dispatchDelete}>
-      <img class="ico" src="assets\times-solid.svg" alt="x" />
+      <img class="ico" src="./assets/times-solid.svg" alt="x" />
     </button>
   </div>
   <span class="lvl">lvl: {lvl}</span>
