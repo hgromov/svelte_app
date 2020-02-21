@@ -1,8 +1,9 @@
 <script>
   import Header from "./components/Header.svelte";
   import Char from "./components/Char.svelte";
+  import AddCharForm from "./components/AddCharForm.svelte";
 
-  const chars = [
+  let chars = [
     {
       id: 1,
       name: "svelte",
@@ -19,16 +20,39 @@
       lvl: 80
     }
   ];
+
+  const deleteChar = e => {
+    chars = chars.filter(char => char.id !== e.detail);
+  };
+
+  const addChar = e => {
+    const { name, lvl } = e.detail;
+    const newChar = {
+      name,
+      lvl,
+      id: chars.length
+    };
+    chars = [newChar, ...chars];
+  };
 </script>
 
 <style>
   .main {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 </style>
 
-<Header />
+<Header caption="Todo App" />
 <main class="main">
-	<Char name='vasya' lvl='7' />
+  <AddCharForm on:addingChar={addChar} />
+  {#if chars.length}
+    {#each chars as data}
+      <Char {...data} on:deletion={deleteChar} />
+    {/each}
+  {:else}
+    <p>there are no characters yet</p>
+  {/if}
 </main>
